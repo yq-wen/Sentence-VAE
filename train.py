@@ -9,7 +9,7 @@ from tensorboardX import SummaryWriter
 from torch.utils.data import DataLoader
 from collections import OrderedDict, defaultdict
 
-from ptb import PTB
+from quora import Quora
 from utils import to_var, idx2word, expierment_name
 from model import SentenceVAE
 
@@ -17,11 +17,11 @@ from model import SentenceVAE
 def main(args):
     ts = time.strftime('%Y-%b-%d-%H:%M:%S', time.gmtime())
 
-    splits = ['train', 'valid'] + (['test'] if args.test else [])
+    splits = ['train'] + (['test'] if args.test else [])
 
     datasets = OrderedDict()
     for split in splits:
-        datasets[split] = PTB(
+        datasets[split] = Quora(
             data_dir=args.data_dir,
             split=split,
             create_data=args.create_data,
